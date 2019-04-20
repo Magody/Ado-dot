@@ -10,7 +10,7 @@ public class Talentos : MonoBehaviour {
 	ArbolEquilibrio arbolEquilibrio;
 
 	JugadorControlador player;
-	int puntos_talento;
+	int puntos_talento = 100;
 
 	public void iniciarTalentos(JugadorControlador player){
 		
@@ -28,6 +28,38 @@ public class Talentos : MonoBehaviour {
 			arbolDefensa.renovar(id_activacion);
 		if(rama == "equilibrio")
 			arbolEquilibrio.renovar(id_activacion);
+	}
+
+	public bool esPosibleRecoger(string rama, int id){
+
+		bool esPosible = false;
+
+		if (id == 1)
+			return true;
+
+		Nodo padre;
+		if (rama == "ataque") {
+			padre = arbolAtaque.Arbol.obtenerPadre (id);
+
+			if(padre != null) {
+				esPosible = arbolAtaque.Activados [padre.Id - 1];
+			}
+		}
+		else if(rama == "defensa"){
+			padre = arbolDefensa.Arbol.obtenerPadre (id);
+			if(padre != null) {
+				esPosible = arbolDefensa.Activados [padre.Id - 1];
+			}
+		}
+		else if(rama == "equilibrio"){
+			padre = arbolEquilibrio.Arbol.obtenerPadre (id);
+			if(padre != null) {
+				esPosible = arbolEquilibrio.Activados [padre.Id - 1];
+			}
+		}
+
+		return esPosible;
+
 	}
 
 

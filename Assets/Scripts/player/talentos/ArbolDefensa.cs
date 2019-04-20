@@ -96,4 +96,14 @@ public class ArbolDefensa{
 			activados = value;
 		}
 	}
+
+	public Arbol Arbol {
+		get {
+			return this.arbol;
+		}
+		set {
+			arbol = value;
+		}
+	}
+
 }

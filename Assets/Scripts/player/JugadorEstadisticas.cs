@@ -30,11 +30,43 @@ public class JugadorEstadisticas : MonoBehaviour {
 	private int nivel_actual;
 	private Talentos talentos;
 
+
 	public void iniciarEstadisticas(JugadorControlador playerController){
 		talentos = gameObject.AddComponent<Talentos> ();
 		actualizarEstadisticas ();
 		talentos.iniciarTalentos (playerController);
 
+	}
+
+	void Update () {
+
+		if (nivel_actual < experiencia_para_subir.Length-1) {
+			if (experiencia_actual >= experiencia_para_subir [nivel_actual]) {
+				aumentarNivel ();
+				talentos.Puntos_talento += 1;
+			}
+		}
+	}
+
+	public string leerResumenEstadisticas(){
+		string salida = "";
+
+		salida += "V: " + vida_actual;
+		salida += "\nM: " + mana_actual;
+		salida += "\nR: " + resistencia_actual;
+		salida += "\nEXP: " + experiencia_para_subir[nivel_actual];
+		salida += "\nEXP Actual: " + experiencia_actual;
+		salida += "\nCR: " + critico;
+		salida += "\nFF: " + fuerza_fisica_actual;
+		salida += "\nFMD: " + fuerza_magica_destructora_actual;
+		salida += "\nFMS: " + fuerza_magica_sanadora_actual;
+		salida += "\nE: " + esquivar;
+		salida += "\nB: " + bloquear;
+		salida += "\nVM: " + velocidad_movimiento_actual;
+		salida += "\nNivel actual: " + nivel_actual;
+		salida += "\nD: " + defensa_actual;
+
+		return salida;
 	}
 
 	private void actualizarEstadisticas(){
@@ -46,20 +78,6 @@ public class JugadorEstadisticas : MonoBehaviour {
 		fuerza_magica_sanadora_actual = fuerza_magica_sanadora_base [nivel_actual];
 		defensa_actual = defensa_base [nivel_actual];
 		velocidad_movimiento_actual = velocidad_movimiento_base [nivel_actual];
-	}
-
-	void Update () {
-
-		if (nivel_actual < experiencia_para_subir.Length-1) {
-			if (experiencia_actual >= experiencia_para_subir [nivel_actual]) {
-				aumentarNivel ();
-				talentos.Puntos_talento += 1;
-			}
-		}
-
-
-
-
 	}
 
 	private void aumentarNivel(){

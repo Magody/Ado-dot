@@ -84,5 +84,13 @@ public class ArbolAtaque{
 		}
 	}
 
+	public Arbol Arbol {
+		get {
+			return this.arbol;
+		}
+		set {
+			arbol = value;
+		}
+	}
 
 }

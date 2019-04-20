@@ -2,11 +2,12 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\player\talentos\Talentos.cs">
     <Files>
-      <File FileName="Assets\Scripts\UI\UIManager.cs" Line="51" Column="3" />
-      <File FileName="Assets\Scripts\player\talentos\trigger_talento.cs" Line="49" Column="5" />
-      <File FileName="Assets\Scripts\player\talentos\Talentos.cs" Line="30" Column="19" />
-      <File FileName="Assets\Scripts\player\PlayerStats.cs" Line="52" Column="18" />
-      <File FileName="Assets\Scripts\player\talentos\ArbolAtaque.cs" Line="55" Column="1" />
+      <File FileName="Assets\Scripts\player\JugadorControlador.cs" Line="8" Column="25" />
+      <File FileName="Assets\Scripts\player\JugadorEstadisticas.cs" Line="69" Column="17" />
+      <File FileName="Assets\Scripts\armas\WeaponController.cs" Line="56" Column="56" />
+      <File FileName="Assets\Scripts\player\talentos\Trigger_talento.cs" Line="21" Column="3" />
+      <File FileName="Assets\Scripts\player\talentos\Talentos.cs" Line="33" Column="9" />
+      <File FileName="Assets\Scripts\Estructuras de datos\Arbol.cs" Line="70" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -78,7 +78,7 @@
      <Compile Include="Assets\Scripts\player\talentos\ArbolDefensa.cs" />
      <Compile Include="Assets\Scripts\player\talentos\ArbolEquilibrio.cs" />
      <Compile Include="Assets\Scripts\player\talentos\Talentos.cs" />
-     <Compile Include="Assets\Scripts\player\talentos\trigger_talento.cs" />
+     <Compile Include="Assets\Scripts\player\talentos\TriggerTalento.cs" />
      <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\CircleObject.cs" />
      <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\GPUInstancing.cs" />
      <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\GameObjectExtensions.cs" />

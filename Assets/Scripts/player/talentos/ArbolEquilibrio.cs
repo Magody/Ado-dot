@@ -76,4 +76,13 @@ public class ArbolEquilibrio{
 			activados = value;
 		}
 	}
+
+	public Arbol Arbol {
+		get {
+			return this.arbol;
+		}
+		set {
+			arbol = value;
+		}
+	}
 }

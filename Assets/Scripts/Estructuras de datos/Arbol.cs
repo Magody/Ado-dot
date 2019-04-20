@@ -13,8 +13,6 @@ public class Arbol{
 		numero_nodos = 0;
 	}
 
-
-
 	public void leerPorNivel(){
 
 
@@ -40,6 +38,40 @@ public class Arbol{
 
 		}
 
+
+	}
+
+	public Nodo obtenerPadre(int id){
+
+		Nodo padre = null;
+
+		Cola cola = new Cola ();
+		Lista visitados = new Lista();
+
+		cola.push (raiz);
+		visitados.push (raiz);
+
+		while (!cola.estaVacia ()) {
+			Nodo puntero = cola.pop ();
+
+			if (puntero.Hijos != null) {
+				foreach (Nodo hijo in puntero.Hijos) {
+					if (!visitados.contiene (hijo)) {
+						cola.push (hijo);
+						visitados.push (hijo);
+					}
+
+					if (hijo.Id == id) {
+						//Debug.Log (id + " su padre es " + puntero.Id);
+						return puntero;
+					}
+
+				}
+
+			}
+		}
+
+		return padre;
 
 	}
 

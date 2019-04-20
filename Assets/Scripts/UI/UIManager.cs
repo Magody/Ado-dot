@@ -10,7 +10,8 @@ public class UIManager : MonoBehaviour {
 	public Text text_barra_vida;
 	public Text text_barra_exp;
 	public Text text_nivel;
-	public Text text_crítico;
+
+	public Text text_resumen;
 
 	private JugadorControlador jugadorControlador;
 
@@ -56,6 +57,6 @@ public class UIManager : MonoBehaviour {
 		text_nivel.text = "Nivel: " + nivel;
 
 
-		text_crítico.text = "CR: " + estadisticas.Critico + "\nFF: " +  estadisticas.Fuerza_fisica_actual;
+		text_resumen.text = estadisticas.leerResumenEstadisticas ();
 	}
 }
