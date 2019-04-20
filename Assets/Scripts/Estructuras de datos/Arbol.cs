@@ -41,9 +41,9 @@ public class Arbol{
 
 	}
 
-	public Nodo obtenerPadre(int id){
+	public Lista obtenerPadres(int id){
 
-		Nodo padre = null;
+		Lista padre = new Lista();
 
 		Cola cola = new Cola ();
 		Lista visitados = new Lista();
@@ -63,7 +63,8 @@ public class Arbol{
 
 					if (hijo.Id == id) {
 						//Debug.Log (id + " su padre es " + puntero.Id);
-						return puntero;
+						padre.push(puntero);
+						
 					}
 
 				}

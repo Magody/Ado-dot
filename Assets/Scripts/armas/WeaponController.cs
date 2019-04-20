@@ -24,7 +24,7 @@ public abstract class WeaponController : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col){
 
-		if (col.gameObject.tag == "Enemy" && player_controller.JugadorEstado.estado_actual == JugadorEstado.ATACANDO) {
+		if (col.gameObject.tag == "Enemy" && player_controller.JugadorEstado.Esta_atacando) {
 
 
 			var clone = (GameObject) Instantiate (prefab_danio_flotante, transform.position, Quaternion.Euler (Vector3.zero));

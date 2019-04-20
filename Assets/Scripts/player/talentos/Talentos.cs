@@ -37,24 +37,51 @@ public class Talentos : MonoBehaviour {
 		if (id == 1)
 			return true;
 
-		Nodo padre;
+		Lista padre;
 		if (rama == "ataque") {
-			padre = arbolAtaque.Arbol.obtenerPadre (id);
+			
+			padre = arbolAtaque.Arbol.obtenerPadres (id);
 
 			if(padre != null) {
-				esPosible = arbolAtaque.Activados [padre.Id - 1];
+				Nodo puntero = padre.pop ();
+				while (puntero != null) {
+
+					esPosible = arbolAtaque.Activados [puntero.Id - 1];
+					if (esPosible)
+						return true;
+
+					puntero = padre.pop ();
+				}
+
+
 			}
 		}
 		else if(rama == "defensa"){
-			padre = arbolDefensa.Arbol.obtenerPadre (id);
+			padre = arbolDefensa.Arbol.obtenerPadres (id);
 			if(padre != null) {
-				esPosible = arbolDefensa.Activados [padre.Id - 1];
+				Nodo puntero = padre.pop ();
+				while (puntero != null) {
+
+					esPosible = arbolDefensa.Activados [puntero.Id - 1];
+					if (esPosible)
+						return true;
+
+					puntero = padre.pop ();
+				}
 			}
 		}
 		else if(rama == "equilibrio"){
-			padre = arbolEquilibrio.Arbol.obtenerPadre (id);
+			padre = arbolEquilibrio.Arbol.obtenerPadres (id);
 			if(padre != null) {
-				esPosible = arbolEquilibrio.Activados [padre.Id - 1];
+				Nodo puntero = padre.pop ();
+				while (puntero != null) {
+
+					esPosible = arbolEquilibrio.Activados [puntero.Id - 1];
+					if (esPosible)
+						return true;
+
+					puntero = padre.pop ();
+				}
 			}
 		}
 

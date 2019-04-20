@@ -34,7 +34,7 @@ public class SwordController : WeaponController {
 
 	void animatorSetInfo(){
 		
-		animator.SetBool ("esta_atacando", player_controller.JugadorEstado.Estado_actual == JugadorEstado.ATACANDO);
+		animator.SetBool ("esta_atacando", player_controller.JugadorEstado.Esta_atacando);
 		animator.SetFloat ("direccionX",player_controller.Last_move.x);
 		animator.SetFloat ("direccionY",player_controller.Last_move.y);
 	}

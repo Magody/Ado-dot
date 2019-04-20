@@ -12,12 +12,13 @@ public class JugadorEstado : MonoBehaviour {
 	public const int HERIDO = 4;
 	public int estado_actual;
 	JugadorControlador jugadorControlador;
+	bool esta_atacando;
 
 	//temporizadores
 	private float tiempo_muerte = 3f;
 	private float tiempo_muerte_contador = 3f;
-	public float tiempo_ataque = 0.3f;
-	public float tiempo_ataque_contador = 0.3f;
+	public float tiempo_ataque = 0.4f;
+	public float tiempo_ataque_contador = 0.4f;
 	private float tiempo_herido = 1f;
 	private float tiempo_herido_contador = 1f;
 
@@ -39,18 +40,21 @@ public class JugadorEstado : MonoBehaviour {
 
 		switch (estado_actual) {
 		case 0:
+			esta_atacando = false;
 			controlesMovimientoEstandar ();
 			controlesAccion ();
 			break;
 		case 1:
+			esta_atacando = false;
 			controlesMovimientoEstandar ();
 			controlesAccion ();
-
 			break;
 		case 2:
+			controlesMovimientoAtaque ();
 			animacionAtaqueEspada ();
 			break;
 		case 3:
+			esta_atacando = false;
 			jugadorControlador.Is_alive = false;
 			jugadorControlador.Can_move = false;
 			jugadorControlador.Rb.velocity = Vector2.zero;
@@ -58,6 +62,7 @@ public class JugadorEstado : MonoBehaviour {
 			break;
 		case 4:
 			controlesMovimientoHerido ();
+			controlesAccionHerido ();
 			animacionHerido ();
 			break;
 		}
@@ -147,15 +152,61 @@ public class JugadorEstado : MonoBehaviour {
 		}
 	}
 
+
+
+	void controlesMovimientoAtaque(){
+
+		jugadorControlador.Axis = new Vector2(Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
+
+
+		if (jugadorControlador.Axis.x > 0.5f || jugadorControlador.Axis.x < -0.5f) {
+
+			//playerController.Animator.SetBool ("player_moving", true);
+			jugadorControlador.Rb.velocity = new Vector2 (jugadorControlador.Axis.x * jugadorControlador.JugadorEstadisticas.Velocidad_movimiento_actual, jugadorControlador.Rb.velocity.y);
+			jugadorControlador.Last_move = new Vector2 (jugadorControlador.Axis.x, 0);
+		} else {
+			//playerController.Animator.SetBool ("player_moving", false);
+			jugadorControlador.Rb.velocity = new Vector2 (0, jugadorControlador.Rb.velocity.y);
+		}
+
+		if (jugadorControlador.Axis.y > 0.5f || jugadorControlador.Axis.y < -0.5f) {
+			//playerController.Animator.SetBool ("player_moving", true);
+			//transform.Translate (new Vector3 (0,axis.y*velocidad_movimiento*Time.deltaTime,0));
+			jugadorControlador.Rb.velocity = new Vector2 (jugadorControlador.Rb.velocity.x, jugadorControlador.Axis.y * jugadorControlador.JugadorEstadisticas.Velocidad_movimiento_actual);
+			jugadorControlador.Last_move = new Vector2 (0, jugadorControlador.Axis.y);
+		} else{
+			//if(!primer_condicional_activado)
+			//	playerController.Animator.SetBool ("player_moving", false);
+			jugadorControlador.Rb.velocity = new Vector2 (jugadorControlador.Rb.velocity.x, 0);
+		}
+
+
+		//control de lmovimiento diagonal que es más rápido de lo esperado
+		if (Mathf.Abs (jugadorControlador.Axis.x) > 0.5f && Mathf.Abs (jugadorControlador.Axis.y) > 0.5f) {
+			jugadorControlador.JugadorEstadisticas.Velocidad_movimiento_actual = jugadorControlador.JugadorEstadisticas.Velocidad_movimiento_base[jugadorControlador.JugadorEstadisticas.Nivel_actual] / 2f;
+		} else {
+			jugadorControlador.JugadorEstadisticas.Velocidad_movimiento_actual = jugadorControlador.JugadorEstadisticas.Velocidad_movimiento_base[jugadorControlador.JugadorEstadisticas.Nivel_actual];
+		}
+	}
+
 	void controlesAccion(){
 		if (Input.GetKeyDown (KeyCode.A)) {
 			//ataca con la espada
+			esta_atacando = true;
 			if (!esta_animando)
 				this.Estado_actual = JugadorEstado.ATACANDO;
 			else {
 				animacionAtaqueEspada ();
-
 			}
+			sfx.SOUND_JUGADOR_ATAQUE.Play ();
+		}
+	}
+
+	void controlesAccionHerido(){
+		if (Input.GetKeyDown (KeyCode.A)) {
+			//ataca con la espada
+			esta_atacando = true;
+			animacionAtaqueEspadaHerido ();
 			sfx.SOUND_JUGADOR_ATAQUE.Play ();
 		}
 	}
@@ -187,11 +238,22 @@ public class JugadorEstado : MonoBehaviour {
 	}
 
 	void animacionAtaqueEspada(){
+		
 		tiempo_ataque_contador -= Time.deltaTime;
 		esta_animando = true;
 		if (tiempo_ataque_contador < 0) {
 			tiempo_ataque_contador = tiempo_ataque;
 			this.Estado_actual = JugadorEstado.QUIETO;
+			esta_animando = false;
+		}
+	}
+
+	void animacionAtaqueEspadaHerido(){
+
+		tiempo_ataque_contador -= Time.deltaTime;
+		esta_animando = true;
+		if (tiempo_ataque_contador < 0) {
+			tiempo_ataque_contador = tiempo_ataque;
 			esta_animando = false;
 		}
 	}
@@ -247,6 +309,15 @@ public class JugadorEstado : MonoBehaviour {
 		}
 		set {
 			esta_animando = value;
+		}
+	}
+
+	public bool Esta_atacando {
+		get {
+			return this.esta_atacando;
+		}
+		set {
+			esta_atacando = value;
 		}
 	}
 
