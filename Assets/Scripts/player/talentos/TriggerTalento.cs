@@ -83,7 +83,10 @@ public class TriggerTalento : MonoBehaviour {
 				if (jugadorControlador.JugadorEstadisticas.Talentos.Puntos_talento > 0) {
 				
 					jugadorControlador.JugadorEstadisticas.Talentos.renovarTalentos (id, rama);
-					print ("Talento: " + id + " de la rama " + rama + " activado.");
+
+					DialogManager.IniciarDialogo (new string[]{"Talento: " + id + " de la rama " + rama + " activado.\n",
+						jugadorControlador.JugadorEstadisticas.Talentos.leerInformacionTalento(rama,id)});
+
 					debe_desaparecer = true;
 					this.GetComponent<BoxCollider2D> ().enabled = false;
 					jugadorControlador.JugadorEstadisticas.Talentos.Puntos_talento -= 1;
@@ -94,10 +97,10 @@ public class TriggerTalento : MonoBehaviour {
 						}
 
 				} else {
-					print ("No hay suficientes talentos");
+					DialogManager.IniciarDialogo (new string[]{"No hay suficientes talentos"});
 				}
 			} else {
-				print ("Debes desbloquear un talento superior antes");
+				DialogManager.IniciarDialogo (new string[]{"Debes desbloquear un talento superior antes"});
 			}
 		}
 	}

@@ -10,7 +10,7 @@ public class JugadorControlador : MonoBehaviour {
 	private JugadorEstado jugadorEstado;
 	private Vector2 axis; //si es horizontal o vertical actualmente
 	private Vector2 last_move; //para la direccion del movimiento
-	private Vector3 posicion_inicial =  new Vector3 (12.05f, -5.71f, 0f);
+	private Vector3 posicion_inicial =  new Vector3 (28.71f, -14.3f, 0f);
 	SpriteRenderer sprite_renderer; 
 	//Comprobadores de estado
 	private string estado_actual;
@@ -55,26 +55,65 @@ public class JugadorControlador : MonoBehaviour {
 		jugadorEstadisticas.Vida_actual = jugadorEstadisticas.Vida_base[jugadorEstadisticas.Nivel_actual];
 	}
 
-	void applyDamage(float damage){
-		
-		if (jugadorEstado.Estado_actual != JugadorEstado.HERIDO) {
-			if (jugadorEstadisticas.Vida_actual - damage >= 0) {
-				jugadorEstadisticas.Vida_actual -= damage;
+	void aplicarDanio(string[] danio_tipo){
+
+		var clone = (GameObject)Instantiate (prefab_danio_flotante, transform.position, Quaternion.Euler (Vector3.zero));
+
+		if (Random.Range (1, 101) > jugadorEstadisticas.Esquivar) { 
+
+			float danio = float.Parse (danio_tipo [0]);
+
+			if (danio_tipo [1] == "fisico") {
+
+				danio -= (danio * jugadorEstadisticas.Defensa_fisica_actual / 100);
+
+				if (jugadorEstado.Estado_actual != JugadorEstado.HERIDO) {
+					if (jugadorEstadisticas.Vida_actual - danio >= 0) {
+						jugadorEstadisticas.Vida_actual -= danio;
+
+					} else
+						jugadorEstadisticas.Vida_actual = 0;
+
+
+					jugadorEstado.Estado_actual = JugadorEstado.HERIDO;
+					sfx.SOUND_JUGADOR_HERIDO.Play ();
+					sprite_renderer.color = new Color (sprite_renderer.color.r, sprite_renderer.color.g, sprite_renderer.color.b, 0.5f);
+
+					Instantiate (particle_prefab_blood, transform.position, transform.rotation);
+					clone.GetComponent<TextoFlotante> ().texto = ""+danio;
+					clone.GetComponent<TextoFlotante> ().text_numero.color = Color.grey;
+				}
+
+			} else if (danio_tipo [1] == "magico") {
+
+				danio -= (danio * jugadorEstadisticas.Defensa_magica_actual / 100);
+
+				if (jugadorEstado.Estado_actual != JugadorEstado.HERIDO) {
+					if (jugadorEstadisticas.Vida_actual - danio >= 0) {
+						jugadorEstadisticas.Vida_actual -= danio;
+
+					} else
+						jugadorEstadisticas.Vida_actual = 0;
+
+
+					jugadorEstado.Estado_actual = JugadorEstado.HERIDO;
+					sfx.SOUND_JUGADOR_HERIDO.Play ();
+					sprite_renderer.color = new Color (sprite_renderer.color.r, sprite_renderer.color.g, sprite_renderer.color.b, 0.5f);
+
+					Instantiate (particle_prefab_blood, transform.position, transform.rotation);
+					clone.GetComponent<TextoFlotante> ().texto = ""+danio;
+					clone.GetComponent<TextoFlotante> ().text_numero.color = Color.magenta;
+				}
 
 			}
-			else
-				jugadorEstadisticas.Vida_actual = 0;
 
+		} else {
+			clone.GetComponent<TextoFlotante> ().texto = "Esquivado";
+			clone.GetComponent<TextoFlotante> ().text_numero.color = Color.green;
 
-			jugadorEstado.Estado_actual = JugadorEstado.HERIDO;
-			sfx.SOUND_JUGADOR_HERIDO.Play ();
-			sprite_renderer.color = new Color(sprite_renderer.color.r,sprite_renderer.color.g,sprite_renderer.color.b,0.5f);
-
-			Instantiate (particle_prefab_blood, transform.position, transform.rotation);
-			var clone = (GameObject)Instantiate (prefab_danio_flotante, transform.position, Quaternion.Euler (Vector3.zero));
-			clone.GetComponent<NumerosFlotantes> ().numero = damage;
-			clone.GetComponent<NumerosFlotantes> ().text_numero.color = Color.grey;
 		}
+
+
 	}
 
 	//GETTERS SETTERS

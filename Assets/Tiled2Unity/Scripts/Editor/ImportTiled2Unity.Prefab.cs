@@ -273,14 +273,14 @@ namespace Tiled2Unity
 
             foreach (Transform child in gameObject.transform)
             {
-                if (child.gameObject == null)
+				if (child.gameObject == null)
                     continue;
 
                 // Do not set the layerId on a child that has already had his layerId explicitly set
-                if (child.gameObject.layer != 0)
+				if (child.gameObject.layer != 0)
                     continue;
 
-                AssignLayerIdTo(child.gameObject, layerId);
+				AssignLayerIdTo(child.gameObject, layerId);
             }
         }
 

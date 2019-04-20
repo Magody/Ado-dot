@@ -50,14 +50,14 @@ public abstract class WeaponController : MonoBehaviour {
 					
 			}
 
-			clone.GetComponent<NumerosFlotantes> ().numero = damage_final;
+			clone.GetComponent<TextoFlotante> ().texto = ""+damage_final;
 			if (damage_final > damage) {
-				clone.GetComponent<NumerosFlotantes> ().Tamanio *= 2;
-				clone.GetComponent<NumerosFlotantes> ().text_numero.color = Color.yellow;
+				clone.GetComponent<TextoFlotante> ().Tamanio *= 2;
+				clone.GetComponent<TextoFlotante> ().text_numero.color = Color.yellow;
 			}
 
 			col.gameObject.SendMessageUpwards ("applyDamage", damage_final);
-			print ("El arma golpeo a " + col.gameObject.name);
+			//print ("El arma golpeo a " + col.gameObject.name);
 
 
 		}

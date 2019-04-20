@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class NumerosFlotantes : MonoBehaviour {
+public class TextoFlotante : MonoBehaviour {
 
 	public float velocidad_movimiento;
-	public float numero;
+	public string texto;
 	public Text text_numero;
 	private int tamanio;
 
@@ -18,7 +18,7 @@ public class NumerosFlotantes : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		text_numero.text = "" + numero;
+		text_numero.text = texto;
 		transform.position = 
 			new Vector3 (transform.position.x, 
 				transform.position.y + velocidad_movimiento * Time.deltaTime,

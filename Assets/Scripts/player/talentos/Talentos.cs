@@ -30,6 +30,19 @@ public class Talentos : MonoBehaviour {
 			arbolEquilibrio.renovar(id_activacion);
 	}
 
+	public string leerInformacionTalento(string rama, int id){
+		string salida = "";
+		if (rama == "ataque")
+			salida =  arbolAtaque.Arbol.buscarNodo (id).Descripcion;
+		if(rama == "defensa")
+			salida =  arbolDefensa.Arbol.buscarNodo (id).Descripcion;
+		if(rama == "equilibrio")
+			salida =  arbolEquilibrio.Arbol.buscarNodo (id).Descripcion;
+
+		return salida;
+
+	}
+
 	public bool esPosibleRecoger(string rama, int id){
 
 		bool esPosible = false;

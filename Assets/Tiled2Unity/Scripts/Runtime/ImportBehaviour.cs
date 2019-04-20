@@ -203,7 +203,7 @@ namespace Tiled2Unity
         // In case this behaviour leaks out of an import and into the runtime, complain.
         private void Update()
         {
-            Debug.LogError(String.Format("ImportBehaviour based on '{0}' left in scene after importing. Check if import was successful and remove this object from scene {1}", this.Tiled2UnityXmlPath, this.gameObject.name));
+			Debug.LogError(String.Format("ImportBehaviour based on '{0}' left in scene after importing. Check if import was successful and remove this object from scene {1}", this.Tiled2UnityXmlPath, this.gameObject.name));
         }
 
     }

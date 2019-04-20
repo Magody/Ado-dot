@@ -37,8 +37,8 @@ namespace Tiled2Unity
         public void UpdateSpriteDepth()
         {
             // Put position into map space
-            Vector3 spritePosition = this.gameObject.transform.position;
-            spritePosition -= this.AttachedMap.gameObject.transform.position;
+			Vector3 spritePosition = this.gameObject.transform.position;
+			spritePosition -= this.AttachedMap.gameObject.transform.position;
 
             // Some maps (like isometric) have a tileset height that is larger than the map tile height in order to get the isometric illusion. We need to know that difference in caluclating depth.
             if (TilesetHeight != 0)
@@ -53,7 +53,7 @@ namespace Tiled2Unity
             float depth_z = (spritePosition.y / this.AttachedMap.ExportScale / mapRect.height) + (depthPerLayer * this.InteractWithLayer);
 
             // Assign our depth value in the z component.
-            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, depth_z);
+			this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, depth_z);
         }
 
     }

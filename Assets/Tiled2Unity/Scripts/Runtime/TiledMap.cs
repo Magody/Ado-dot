@@ -61,7 +61,7 @@ namespace Tiled2Unity
 
         public Rect GetMapRect()
         {
-            Vector2 pos_w = this.gameObject.transform.position;
+			Vector2 pos_w = this.gameObject.transform.position;
             float width = this.MapWidthInPixels;
             float height = this.MapHeightInPixels;
             return new Rect(pos_w.x, pos_w.y - height, width, height);
@@ -69,7 +69,7 @@ namespace Tiled2Unity
 
         public Rect GetMapRectInPixelsScaled()
         {
-            Vector2 pos_w = this.gameObject.transform.position;
+			Vector2 pos_w = this.gameObject.transform.position;
             float widthInPixels = GetMapWidthInPixelsScaled();
             float heightInPixels = GetMapHeightInPixelsScaled();
             return new Rect(pos_w.x, pos_w.y - heightInPixels, widthInPixels, heightInPixels);
@@ -83,7 +83,7 @@ namespace Tiled2Unity
 
         private void OnDrawGizmosSelected()
         {
-            Vector3 pos_w = this.gameObject.transform.position;
+			Vector3 pos_w = this.gameObject.transform.position;
             Vector3 topLeft = Vector3.zero + pos_w;
             Vector3 topRight = new Vector3(GetMapWidthInPixelsScaled(), 0) + pos_w;
             Vector3 bottomRight = new Vector3(GetMapWidthInPixelsScaled(), -GetMapHeightInPixelsScaled()) + pos_w;

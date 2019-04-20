@@ -8,32 +8,71 @@ public class JugadorEstadisticas : MonoBehaviour {
 
 	private float[] vida_base = new float[]{10, 50, 100, 150, 200, 250, 300, 500};
 	private float vida_actual;
+	private float modificacion_vida;
+
 	private float[] mana_base = new float[]{0, 10, 25, 35, 45, 60, 70, 100};
 	private float mana_actual;
+	private float modificacion_mana;
+
 	private float[] resistencia_base = new float[]{100, 100, 100, 100, 100, 100, 100, 100};
 	private float resistencia_actual;
+	private float modificacion_resistencia;
+
 	private int[] experiencia_para_subir = new int[]{10, 20, 40, 80, 160, 320, 640, -1};
 	private int experiencia_actual;
+	private float modificacion_experiencia;
+
 	private float critico;
+
 	private float[] fuerza_fisica_base = new float[]{5, 10, 20, 30, 40, 50, 60, 100};
 	private float fuerza_fisica_actual;
+	private float modificacion_fuerza_fisica;
+
 	private float[] fuerza_magica_destructora_base = new float[]{5, 10, 20, 30, 40, 50, 60, 100};
 	private float fuerza_magica_destructora_actual;
+	private float modificacion_fuerza_magica_destructora;
+
 	private float[] fuerza_magica_sanadora_base = new float[]{0, 0, 0, 0, 0, 0, 0, 0};
 	private float fuerza_magica_sanadora_actual;
-	private float[] defensa_base = new float[]{1, 1, 2, 3, 5, 8, 13, 21};
-	private float defensa_actual;
+	private float modificacion_fuerza_magica_sanadora;
+
+	private float[] defensa_fisica_base = new float[]{1, 1, 2, 3, 5, 8, 13, 21};
+	private float defensa_fisica_actual;
+	private float modificacion_defensa_fisica;
+
+	private float[] defensa_magica_base = new float[]{1, 1, 2, 3, 5, 8, 13, 21};
+	private float defensa_magica_actual;
+	private float modificacion_defensa_magica;
+
 	private float esquivar;
 	private float bloquear;
+
+	private float[] regeneracion_vida_base = new float[]{3, 5, 10, 15, 20, 25, 30, 50};
+	private float regeneracion_vida_actual;
+	private float modificacion_regeneracion_vida;
+
+	private float[] regeneracion_mana_base = new float[]{0, 0.5f, 1, 1.5f, 2, 2.5f, 3, 3.5f};
+	private float regeneracion_mana_actual;
+	private float modificacion_regeneracion_mana;
+
+	private float[] regeneracion_resistencia_base = new float[]{10, 10, 10, 10, 10, 10, 10, 10};
+	private float regeneracion_resistencia_actual;
+	private float modificacion_regeneracion_resistencia;
+
 	private float[] velocidad_movimiento_base = new float[]{5, 5, 5, 5, 5, 5, 5, 5};
 	private float velocidad_movimiento_actual;
+
 	private int nivel_actual;
 	private Talentos talentos;
 
 
+	private float tiempo_regeneracion = 5;
+	private float tiempo_regeneracion_contador = 5;
+
+
 	public void iniciarEstadisticas(JugadorControlador playerController){
 		talentos = gameObject.AddComponent<Talentos> ();
-		actualizarEstadisticas ();
+		actualizarEstadisticasNivel ();
 		talentos.iniciarTalentos (playerController);
 
 	}
@@ -46,44 +85,236 @@ public class JugadorEstadisticas : MonoBehaviour {
 				talentos.Puntos_talento += 1;
 			}
 		}
+
+		//regeneración de estadisticas cada cierto tiempo
+		tiempo_regeneracion_contador -= Time.deltaTime;
+
+		if (tiempo_regeneracion_contador < 0) {
+			
+			if (vida_actual < vida_base [nivel_actual]) {
+				regenerarVida ();
+			}
+
+			if (mana_actual < mana_base [nivel_actual]) {
+				regenerarMana ();
+			}
+
+			if (regeneracion_resistencia_actual < regeneracion_resistencia_base [nivel_actual]) {
+				regenerarResistencia ();
+			}
+			tiempo_regeneracion_contador = tiempo_regeneracion;
+		}
+			
+		//print (velocidad_movimiento_actual);
+
+	}
+
+	public void modificarPermanentemenetEstadisticas(string estadistica,bool es_porcentual,float valor){
+
+		//toda variable modificación es porcentural
+		if (es_porcentual) {
+			
+			switch (estadistica) {
+			case "V":
+				modificacion_vida = valor;
+				break;
+			case "M":
+				modificacion_mana = valor;
+				break;
+			case "R":
+				modificacion_resistencia = valor;
+				break;
+			case "CR":
+				critico = valor * 100;
+				break;
+			case "FF":
+				modificacion_fuerza_fisica = valor;
+				break;
+			case "FMD":
+				modificacion_fuerza_magica_destructora = valor;
+				break;
+			case "FMS":
+				modificacion_fuerza_magica_sanadora = valor;
+				break;
+			case "DF":
+				modificacion_defensa_fisica = valor;
+				break;
+			case "DM":
+				modificacion_defensa_magica = valor;
+				break;
+			case "E":
+				esquivar = valor * 100;
+				break;
+			case "B":
+				bloquear = valor * 100;
+				break;
+			case "RV":
+				modificacion_regeneracion_vida = valor;
+				break;
+			case "RM":
+				modificacion_regeneracion_mana = valor;
+				break;
+			case "RR":
+				modificacion_regeneracion_resistencia = valor;
+				break;
+			case "VM":
+				Debug.Log ("Solo se hacen cambios directos a la velocidad de movimiento");
+				break;
+			}
+		} else {
+			//es un cambio directo a los valores base
+			switch (estadistica) {
+			case "V":
+				for(int i=0; i<vida_base.Length;i++) {
+					vida_base [i] = vida_base [i] + valor;
+				}
+				break;
+			case "M":
+				for(int i=0; i<mana_base.Length;i++) {
+					mana_base [i] = mana_base [i] + valor;
+				}
+				break;
+			case "R":
+				for(int i=0; i<resistencia_base.Length;i++) {
+					resistencia_base [i] = resistencia_base [i] + valor;
+				}
+				break;
+			case "CR":
+				Debug.Log ("Solo se hacen cambios porcentuales al crítico");
+				break;
+			case "FF":
+				for(int i=0; i<fuerza_fisica_base.Length;i++) {
+					fuerza_fisica_base [i] = fuerza_fisica_base [i] + valor;
+				}
+				break;
+			case "FMD":
+				for(int i=0; i<fuerza_magica_destructora_base.Length;i++) {
+					fuerza_magica_destructora_base [i] = fuerza_magica_destructora_base [i] + valor;
+				}
+				break;
+			case "FMS":
+				for(int i=0; i<fuerza_magica_sanadora_base.Length;i++) {
+					fuerza_magica_sanadora_base [i] = fuerza_magica_sanadora_base [i] + valor;
+				}
+				break;
+			case "DF":
+				for(int i=0; i<defensa_fisica_base.Length;i++) {
+					defensa_fisica_base [i] = defensa_fisica_base [i] + valor;
+				}
+				break;
+			case "DM":
+				for(int i=0; i<defensa_magica_base.Length;i++) {
+					defensa_magica_base [i] = defensa_magica_base [i] + valor;
+				}
+				break;
+			case "E":
+				Debug.Log ("Solo se hacen cambios porcentuales al esquivar");
+				break;
+			case "B":
+				Debug.Log ("Solo se hacen cambios porcentuales al bloquear");
+				break;
+			case "RV":
+				for(int i=0; i<regeneracion_vida_base.Length;i++) {
+					regeneracion_vida_base [i] = regeneracion_vida_base [i] + valor;
+				}
+				break;
+			case "RM":
+				for(int i=0; i<regeneracion_mana_base.Length;i++) {
+					regeneracion_mana_base [i] = regeneracion_mana_base [i] + valor;
+				}
+				break;
+			case "RR":
+				for(int i=0; i<regeneracion_resistencia_base.Length;i++) {
+					regeneracion_resistencia_base [i] = regeneracion_resistencia_base [i] + valor;
+				}
+				break;
+			case "VM":
+				
+				for(int i=0; i<velocidad_movimiento_base.Length;i++) {
+					velocidad_movimiento_base [i] = velocidad_movimiento_base [i] + valor;
+				}
+
+				break;
+			}
+		}
+
+		actualizarEstadisticasNivel ();
+
+
+	}
+
+
+	private void regenerarVida(){
+
+		if (vida_actual + regeneracion_vida_actual < vida_base [nivel_actual]) {
+			vida_actual += regeneracion_vida_actual;
+		} else {
+			vida_actual = vida_base [nivel_actual];
+		}
+	}
+
+	private void regenerarMana(){
+
+		if (mana_actual + regeneracion_mana_actual < mana_base [nivel_actual]) {
+			mana_actual += regeneracion_mana_actual;
+		} else {
+			mana_actual = mana_base [nivel_actual];
+		}
+	}
+
+	private void regenerarResistencia(){
+
+		if (regeneracion_resistencia_actual + regeneracion_resistencia_actual < regeneracion_resistencia_base [nivel_actual]) {
+			regeneracion_resistencia_actual += regeneracion_vida_actual;
+		} else {
+			regeneracion_resistencia_actual = regeneracion_resistencia_base [nivel_actual];
+		}
+	}
+
+
+	private void aumentarNivel(){
+		experiencia_actual -= experiencia_para_subir [nivel_actual];
+		nivel_actual++;
+		actualizarEstadisticasNivel ();
+	}
+
+	private void actualizarEstadisticasNivel(){
+		vida_actual = vida_base [nivel_actual] + modificacion_vida*vida_base [nivel_actual];
+		mana_actual = mana_base [nivel_actual] + modificacion_mana*mana_base[nivel_actual];
+		resistencia_actual = resistencia_base [nivel_actual] + modificacion_resistencia*resistencia_base[nivel_actual];
+		fuerza_fisica_actual = fuerza_fisica_base [nivel_actual]+modificacion_fuerza_fisica*fuerza_fisica_base[nivel_actual];
+		fuerza_magica_destructora_actual = fuerza_magica_destructora_base [nivel_actual]+modificacion_fuerza_magica_destructora*fuerza_magica_destructora_base [nivel_actual];
+		fuerza_magica_sanadora_actual = fuerza_magica_sanadora_base [nivel_actual]+modificacion_fuerza_magica_sanadora*fuerza_magica_sanadora_base [nivel_actual];
+		defensa_fisica_actual = defensa_fisica_base [nivel_actual]+modificacion_defensa_fisica*defensa_fisica_base [nivel_actual];
+		defensa_magica_actual = defensa_magica_base [nivel_actual]+modificacion_defensa_magica*defensa_magica_base [nivel_actual];
+		regeneracion_vida_actual = regeneracion_vida_base[nivel_actual]+modificacion_regeneracion_vida*regeneracion_vida_base[nivel_actual];
+		regeneracion_mana_actual = regeneracion_mana_base[nivel_actual]+modificacion_regeneracion_mana*regeneracion_mana_base[nivel_actual];
+		regeneracion_resistencia_actual = regeneracion_resistencia_base[nivel_actual]+modificacion_regeneracion_resistencia*regeneracion_resistencia_base[nivel_actual];
+		velocidad_movimiento_actual = velocidad_movimiento_base [nivel_actual];
+
 	}
 
 	public string leerResumenEstadisticas(){
 		string salida = "";
 
 		salida += "V: " + vida_actual;
-		salida += "\nM: " + mana_actual;
-		salida += "\nR: " + resistencia_actual;
+		salida += "\nM: " + mana_actual; //no usada
+		salida += "\nR: " + resistencia_actual; //no usada
 		salida += "\nEXP: " + experiencia_para_subir[nivel_actual];
 		salida += "\nEXP Actual: " + experiencia_actual;
 		salida += "\nCR: " + critico;
 		salida += "\nFF: " + fuerza_fisica_actual;
-		salida += "\nFMD: " + fuerza_magica_destructora_actual;
-		salida += "\nFMS: " + fuerza_magica_sanadora_actual;
+		salida += "\nFMD: " + fuerza_magica_destructora_actual; //no usada
+		salida += "\nFMS: " + fuerza_magica_sanadora_actual; //no usada
 		salida += "\nE: " + esquivar;
-		salida += "\nB: " + bloquear;
+		salida += "\nB: " + bloquear; //no usada
+		salida += "\nDF: " + defensa_fisica_actual;
+		salida += "\nDM: " + defensa_magica_actual; 
+		salida += "\nRV: " + regeneracion_vida_actual;
+		salida += "\nRM: " + regeneracion_mana_actual;
+		salida += "\nRR: " + regeneracion_resistencia_actual;
 		salida += "\nVM: " + velocidad_movimiento_actual;
-		salida += "\nNivel actual: " + nivel_actual;
-		salida += "\nD: " + defensa_actual;
-
 		return salida;
-	}
-
-	private void actualizarEstadisticas(){
-		vida_actual = vida_base [nivel_actual];
-		mana_actual = mana_base [nivel_actual];
-		resistencia_actual = resistencia_base [nivel_actual];
-		fuerza_fisica_actual = fuerza_fisica_base [nivel_actual];
-		fuerza_magica_destructora_actual = fuerza_magica_destructora_base [nivel_actual];
-		fuerza_magica_sanadora_actual = fuerza_magica_sanadora_base [nivel_actual];
-		defensa_actual = defensa_base [nivel_actual];
-		velocidad_movimiento_actual = velocidad_movimiento_base [nivel_actual];
-	}
-
-	private void aumentarNivel(){
-		experiencia_actual -= experiencia_para_subir [nivel_actual];
-		nivel_actual++;
-		actualizarEstadisticas ();
 	}
 
 	public float[] Vida_base {
@@ -221,21 +452,21 @@ public class JugadorEstadisticas : MonoBehaviour {
 		}
 	}
 
-	public float[] Defensa_base {
+	public float[] Defensa_fisica_base {
 		get {
-			return this.defensa_base;
+			return this.defensa_fisica_base;
 		}
 		set {
-			defensa_base = value;
+			defensa_fisica_base = value;
 		}
 	}
 
-	public float Defensa_actual {
+	public float Defensa_fisica_actual {
 		get {
-			return this.defensa_actual;
+			return this.defensa_fisica_actual;
 		}
 		set {
-			defensa_actual = value;
+			defensa_fisica_actual = value;
 		}
 	}
 
@@ -293,6 +524,23 @@ public class JugadorEstadisticas : MonoBehaviour {
 		}
 	}
 
+	public float[] Defensa_magica_base {
+		get {
+			return this.defensa_magica_base;
+		}
+		set {
+			defensa_magica_base = value;
+		}
+	}
+
+	public float Defensa_magica_actual {
+		get {
+			return this.defensa_magica_actual;
+		}
+		set {
+			defensa_magica_actual = value;
+		}
+	}
 
 
 

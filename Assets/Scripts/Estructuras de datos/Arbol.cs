@@ -41,6 +41,39 @@ public class Arbol{
 
 	}
 
+	public Nodo buscarNodo(int id){
+
+		Nodo buscado = null;
+		Cola cola = new Cola ();
+		Lista visitados = new Lista();
+
+		cola.push (raiz);
+		visitados.push (raiz);
+
+		while (!cola.estaVacia ()) {
+			Nodo puntero = cola.pop ();
+
+			if (puntero.Id == id)
+				return puntero;
+
+			if (puntero.Hijos != null) {
+				foreach (Nodo hijo in puntero.Hijos) {
+					if (!visitados.contiene (hijo)) {
+						cola.push (hijo);
+						visitados.push (hijo);
+					}
+
+					if (hijo.Id == id)
+						return hijo;
+
+				}
+
+			}
+		}
+
+		return buscado;
+	}
+
 	public Lista obtenerPadres(int id){
 
 		Lista padre = new Lista();

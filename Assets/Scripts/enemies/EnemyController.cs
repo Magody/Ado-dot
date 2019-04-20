@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public abstract class EnemyController : MonoBehaviour {
 
-	public float move_speed;
+	public float velocidad_movimiento;
 	protected Rigidbody2D rb;
-	protected bool is_moving;
-	protected Vector3 move_direction;
+	protected bool esta_moviendose;
+	protected Vector3 direccion_movimiento;
 
 	public float vida_base;
 	public float vida_actual;
@@ -15,17 +16,23 @@ public abstract class EnemyController : MonoBehaviour {
 
 	private JugadorControlador jugadorControlador;
 
+	protected Animator animator;
 
 	public GameObject particle_prefab_blood;
 
 
+	protected float danio;
+	public Image barra_vida;
 
 
 	// Use this for initialization
 	protected void SuperStart () {
 		rb = GetComponent<Rigidbody2D> ();
+		animator = GetComponent<Animator> ();
 		vida_actual = vida_base;
 		jugadorControlador = FindObjectOfType<JugadorControlador> ();
+
+	
 	}
 	
 	// Update is called once per frame
@@ -35,6 +42,11 @@ public abstract class EnemyController : MonoBehaviour {
 			QuestManager.ultimo_enemigo_asesinado = gameObject.name;
 			Destroy (this.gameObject);
 		}
+
+
+		barra_vida.fillAmount = vida_actual / vida_base;
+
+
 	}
 
 	void applyDamage(float damage){

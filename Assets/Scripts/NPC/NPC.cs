@@ -8,11 +8,7 @@ public class NPC : MonoBehaviour {
 
 	public float velocidad_movimiento;
 	private Rigidbody2D rb;
-
-
 	private bool esta_caminando;
-
-
 	private int direccion;
 
 	//timers

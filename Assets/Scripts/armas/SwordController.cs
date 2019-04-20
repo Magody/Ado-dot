@@ -9,17 +9,21 @@ public class SwordController : WeaponController {
 
 
 	private Vector2 last_orientation;
+
+	BoxCollider2D boxCollider;
 	// Use this for initialization
 	void Start () {
 		SuperStart ();
 
-
+		boxCollider = GetComponent<BoxCollider2D> ();
 
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		boxCollider.enabled = player_controller.JugadorEstado.Esta_atacando;
 
 		if (player_controller != null) {
 			if (tier == 0) {

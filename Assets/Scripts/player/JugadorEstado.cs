@@ -27,6 +27,7 @@ public class JugadorEstado : MonoBehaviour {
 	SoundManager sfx;
 
 
+
 	public void iniciarEstado(int estado,JugadorControlador jugadorControlador){
 		estado_actual = estado;
 		this.jugadorControlador = jugadorControlador;

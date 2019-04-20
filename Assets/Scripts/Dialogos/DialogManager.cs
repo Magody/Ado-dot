@@ -28,10 +28,32 @@ public class DialogManager : MonoBehaviour {
 
 	public static void IniciarDialogo (string[] li) {
 		//linea actual
-		lineas = li;
+
+
+		if (dialogo_activo) {
+
+			string[] copia = lineas;
+			lineas = new string[copia.Length-(linea_actual-1)+li.Length];
+
+
+			int indice_global = 0;
+			for (int i = linea_actual-1; i < copia.Length; i++,indice_global++) {
+				lineas [indice_global] = copia [i];
+			}
+
+			for (int j = 0; j < li.Length; indice_global++, j++) {
+				lineas [indice_global] = li [j];
+			}
+
+
+		} else {
+			lineas = li;
+		}
 		linea_actual = 0;
 		es_dialogo_mision = false;
 		mostrarMensaje (lineas[linea_actual++]);
+
+
 	}
 
 	public static void IniciarDialogo (QuestObject qObject) {

@@ -6,12 +6,12 @@ public class ArbolEquilibrio{
 
 	Arbol arbol;
 	private bool[] activados;
-	//JugadorControlador player;
+	JugadorEstadisticas jugadorEstadisticas;
 
-	public ArbolEquilibrio(bool[] act,JugadorControlador playerController){
+	public ArbolEquilibrio(bool[] act,JugadorControlador jugadorControlador){
 
 
-		Nodo uno = new Nodo (1, "VM: +10%",0);
+		Nodo uno = new Nodo (1, "VM: +2",0);
 		arbol = new Arbol (uno);
 		Nodo dos = new Nodo (2, "habilidad: curación",1); //fuerza física
 		Nodo tres = new Nodo (3, "habilidad: robo de vida",1); //fuerza mágica
@@ -23,7 +23,8 @@ public class ArbolEquilibrio{
 		//arbol.leerPorNivel ();
 		this.activados = act;
 		//player = playerController;
-		activacionTalentos (playerController);
+		activacionTalentos (jugadorControlador);
+		jugadorEstadisticas = jugadorControlador.JugadorEstadisticas;
 		//arbol.leerPorNivel ();
 
 	}
@@ -31,7 +32,7 @@ public class ArbolEquilibrio{
 	private void activacionTalentos(JugadorControlador playerController){
 
 		if (activados [0]) {
-
+			jugadorEstadisticas.modificarPermanentemenetEstadisticas ("VM", false, 2f);
 		}
 		if (activados [1]) {
 
@@ -54,6 +55,7 @@ public class ArbolEquilibrio{
 		activados [id-1] = true;
 
 		if (id == 1) {
+			jugadorEstadisticas.modificarPermanentemenetEstadisticas ("VM", false, 2f);
 
 		}
 		if (id == 2) {

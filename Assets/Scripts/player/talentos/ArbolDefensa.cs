@@ -6,15 +6,16 @@ public class ArbolDefensa{
 
 	Arbol arbol;
 	private bool[] activados;
-	//JugadorControlador player;
 
-	public ArbolDefensa(bool[] act,JugadorControlador playerController){
+	JugadorEstadisticas jugadorEstadisticas;
+
+	public ArbolDefensa(bool[] act,JugadorControlador jugadorControlador){
 
 
-		Nodo uno = new Nodo (1, "Puede usar escudo y armadura pesada",0);
+		Nodo uno = new Nodo (1, "habilidad: Puede usar escudo y armadura pesada",0);
 		arbol = new Arbol (uno);
-		Nodo dos = new Nodo (2, "reduce todo DF: 20%",1); //fuerza física
-		Nodo tres = new Nodo (3, "reduce todo DM: 20%",1); //fuerza mágica
+		Nodo dos = new Nodo (2, "reduce todo daño fisico: 20%",1); //fuerza física
+		Nodo tres = new Nodo (3, "reduce todo daño mágico: 20%",1); //fuerza mágica
 		arbol.Raiz.Hijos = new Nodo[]{dos,tres};
 		Nodo cuatro = new Nodo (4, "Esquivar:10%, bloquear:10%",2);
 		arbol.Raiz.Hijos [0].Hijos = new Nodo[]{cuatro};
@@ -27,8 +28,9 @@ public class ArbolDefensa{
 
 		//arbol.leerPorNivel ();
 		this.activados = act;
-		//player = playerController;
-		activacionTalentos (playerController);
+
+		jugadorEstadisticas = jugadorControlador.JugadorEstadisticas;
+		activacionTalentos (jugadorControlador);
 		//arbol.leerPorNivel ();
 
 	}
@@ -39,14 +41,14 @@ public class ArbolDefensa{
 			
 		}
 		if (activados [1]) {
-			
-
+			jugadorEstadisticas.modificarPermanentemenetEstadisticas ("DF", false, 20f);
 		}
 		if (activados [2]) {
-			
+			jugadorEstadisticas.modificarPermanentemenetEstadisticas ("DM", false, 20f);
 		}
 		if (activados [3]) {
-
+			jugadorEstadisticas.modificarPermanentemenetEstadisticas ("E", true, 0.1f);
+			jugadorEstadisticas.modificarPermanentemenetEstadisticas ("B", true, 0.1f);
 		}
 		if (activados [4]) {
 
@@ -71,13 +73,14 @@ public class ArbolDefensa{
 			
 		}
 		if (id == 2) {
-			
+			jugadorEstadisticas.modificarPermanentemenetEstadisticas ("DF", false, 20f);
 		}
 		if (id == 3) {
-			
+			jugadorEstadisticas.modificarPermanentemenetEstadisticas ("DM", false, 20f);
 		}
 		if (id == 4) {
-
+			jugadorEstadisticas.modificarPermanentemenetEstadisticas ("E", true, 0.1f);
+			jugadorEstadisticas.modificarPermanentemenetEstadisticas ("B", true, 0.1f);
 		}
 		if (id == 5) {
 
