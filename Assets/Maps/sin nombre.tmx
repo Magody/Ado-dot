@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="16">
+ <properties>
+  <property name="unity:scale" type="float" value="0.0625"/>
+ </properties>
+ <tileset firstgid="1" source="C:/Users/User/Documents/base tileset.tsx"/>
+ <layer id="1" name="Capa de Patrones 1" width="10" height="10">
+  <data encoding="csv">
+6,6,6,6,6,6,6,6,6,6,
+6,6,6,6,6,6,6,6,6,6,
+6,6,3,4,4,5,6,6,6,6,
+6,6,60,61,61,62,6,6,6,6,
+6,6,60,61,61,62,6,6,6,6,
+6,6,117,118,118,119,6,6,6,6,
+6,6,6,6,6,6,6,6,6,6,
+6,6,6,6,6,6,6,6,6,6,
+6,6,6,6,6,6,6,6,6,6,
+6,6,6,6,6,6,6,6,6,6
+</data>
+ </layer>
+ <layer id="2" name="objetos" width="10" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,527,527,527,
+0,0,0,0,0,0,0,731,731,527,
+0,0,0,0,0,0,0,0,0,527,
+0,0,0,0,0,0,0,527,527,527,
+0,0,0,0,0,0,0,527,403,403,
+0,0,0,0,0,0,0,527,527,403,
+0,0,0,0,69,0,0,0,527,527,
+0,619,620,0,623,0,0,0,0,527,
+0,676,677,0,680,0,527,527,527,527
+</data>
+ </layer>
+ <objectgroup id="3" name="Capa de Objetos 1">
+  <object id="1" x="15.5" y="126.5" width="32" height="33"/>
+  <object id="2" x="68" y="131" width="10.5" height="30.5"/>
+  <object id="3" x="32.5" y="31" width="63" height="63.5"/>
+  <object id="4" x="112" y="31.5" width="31" height="16.5"/>
+  <object id="5" x="110.5" y="5" width="1" height="10.5"/>
+  <object id="6" x="113.5" y="25.5" width="42" height="6.5"/>
+  <object id="7" x="149.5" y="43.5" width="6" height="4"/>
+  <object id="8" x="149.5" y="59" width="5.5" height="4"/>
+  <object id="9" x="115" y="74.5" width="40.5" height="5.5"/>
+  <object id="10" x="116.5" y="91.5" width="5.5" height="5"/>
+  <object id="11" x="117.5" y="108" width="22" height="4"/>
+  <object id="12" x="132" y="123" width="24.5" height="6.5"/>
+  <object id="13" x="149.5" y="140.5" width="4.5" height="4.5"/>
+  <object id="14" x="99.5" y="156.5" width="54" height="3.5"/>
+  <object id="15" x="73.5" y="8"/>
+ </objectgroup>
+</map>
