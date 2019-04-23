@@ -6,20 +6,19 @@ public class Instructor : NPC {
 
 	Lista listaInstrucciones;
 	public string tipo;
-	private string jugador_nombre;
+	private JugadorControlador jugadorControlador;
 	private string objeto_chocado;
 
 
 	void Start () {
-
-		jugador_nombre = FindObjectOfType<JugadorControlador> ().name;
+		jugadorControlador = FindObjectOfType<JugadorControlador> ();
 		listaInstrucciones = new Lista ();
 
-		if (tipo == "magia_destructiva") 
+		if (tipo == "magiaDestruccion") 
 			iniciarMagiaDestruccion ();
-		else if(tipo == "magia_sanadora")
+		else if(tipo == "magiaSanacion")
 			iniciarMagiaSanacion ();
-		else if(tipo == "arte_marcial")
+		else if(tipo == "arteMarcial")
 			iniciarArteMarcial ();
 		else if(tipo == "armas")
 			iniciarArmas ();
@@ -36,10 +35,14 @@ public class Instructor : NPC {
 
 			if (Input.GetKeyDown (KeyCode.E)) {
 				if (!listaInstrucciones.estaVacia ()) {
-					if (objeto_chocado == jugador_nombre) {
+					if (objeto_chocado == jugadorControlador.name) {
 					
-						DialogManager.IniciarDialogo (new string[]{ listaInstrucciones.pop ().Descripcion });
-						
+						if (!jugadorControlador.Destrezas.Esta_entrenando) {
+							DialogManager.IniciarDialogo (new string[]{ listaInstrucciones.pop ().Descripcion });
+							jugadorControlador.Destrezas.entrenarNuevoNivelDestreza (tipo);
+						} else {
+							DialogManager.IniciarDialogo (new string[]{ "Sigue entrenando antes del siguiente nivel" });
+						}
 					}
 				} else {
 					DialogManager.IniciarDialogo (new string[]{ "Te he enseñado todo lo que se" });

@@ -8,8 +8,6 @@ public class SwordController : WeaponController {
 	public int tier;
 
 
-	private Vector2 last_orientation;
-
 	BoxCollider2D boxCollider;
 	// Use this for initialization
 	void Start () {
@@ -23,11 +21,11 @@ public class SwordController : WeaponController {
 	// Update is called once per frame
 	void Update () {
 
-		boxCollider.enabled = player_controller.JugadorEstado.Esta_atacando;
+		boxCollider.enabled = jugadorControlador.JugadorEstado.Esta_atacando && jugadorControlador.Tiene_arma;
 
-		if (player_controller != null) {
+		if (jugadorControlador != null) {
 			if (tier == 0) {
-				damage = 1 + player_controller.JugadorEstadisticas.Fuerza_fisica_actual;  //daño básico de la espada (tier) sumado a la fuerza del jugador
+				danio = 10 + jugadorControlador.JugadorEstadisticas.Fuerza_fisica_actual;  //daño básico de la espada (tier) sumado a la fuerza del jugador
 			}
 		}
 		animatorSetInfo ();
@@ -37,10 +35,12 @@ public class SwordController : WeaponController {
 	}
 
 	void animatorSetInfo(){
-		
-		animator.SetBool ("esta_atacando", player_controller.JugadorEstado.Esta_atacando);
-		animator.SetFloat ("direccionX",player_controller.Last_move.x);
-		animator.SetFloat ("direccionY",player_controller.Last_move.y);
+
+		if(jugadorControlador.Tiene_arma){
+			animator.SetBool ("esta_atacando", jugadorControlador.JugadorEstado.Esta_atacando);
+		}
+		animator.SetFloat ("direccionX",jugadorControlador.Last_move.x);
+		animator.SetFloat ("direccionY",jugadorControlador.Last_move.y);
 	}
 
 }

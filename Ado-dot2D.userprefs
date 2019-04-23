@@ -1,0 +1,15 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\player\Destreza\Destrezas.cs">
+    <Files>
+      <File FileName="Assets\Scripts\player\JugadorControlador.cs" Line="177" Column="3" />
+      <File FileName="Assets\Scripts\player\JugadorEstadisticas.cs" Line="281" Column="41" />
+      <File FileName="Assets\Scripts\NPC\Instructor.cs" Line="35" Column="4" />
+      <File FileName="Assets\Scripts\player\Destreza\Destrezas.cs" Line="46" Column="35" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

@@ -13,13 +13,15 @@ public abstract class EnemyController : MonoBehaviour {
 	public float vida_base;
 	public float vida_actual;
 	public int exp_recompensa;
+	public int dinero_recompensa;
 
 	private JugadorControlador jugadorControlador;
 
 	protected Animator animator;
 
 	public GameObject particle_prefab_blood;
-
+	public GameObject alma_entrenamiento;
+	public GameObject moneda;
 
 	protected float danio;
 	public Image barra_vida;
@@ -40,6 +42,18 @@ public abstract class EnemyController : MonoBehaviour {
 		if (vida_actual <= 0) {
 			jugadorControlador.JugadorEstadisticas.Experiencia_actual += exp_recompensa;
 			QuestManager.ultimo_enemigo_asesinado = gameObject.name;
+
+			int aleatorio = Random.Range (1, 101);
+
+			if (aleatorio <= 35) {
+				//35% de que suelte un alma
+				Instantiate(alma_entrenamiento,this.transform.position, this.transform.rotation);
+			}
+
+			var clone = (GameObject) Instantiate(moneda, this.transform.position, this.transform.rotation);
+			clone.GetComponent<MonedaControlador>().Valor = dinero_recompensa;
+
+
 			Destroy (this.gameObject);
 		}
 

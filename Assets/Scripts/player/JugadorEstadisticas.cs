@@ -278,7 +278,7 @@ public class JugadorEstadisticas : MonoBehaviour {
 		actualizarEstadisticasNivel ();
 	}
 
-	private void actualizarEstadisticasNivel(){
+	public void actualizarEstadisticasNivel(){
 		vida_actual = vida_base [nivel_actual] + modificacion_vida*vida_base [nivel_actual];
 		mana_actual = mana_base [nivel_actual] + modificacion_mana*mana_base[nivel_actual];
 		resistencia_actual = resistencia_base [nivel_actual] + modificacion_resistencia*resistencia_base[nivel_actual];

@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour {
 
 	public Slider barra_vida;
 	public Slider barra_exp;
+	public Slider barra_entrenamiento;
 	public Text text_barra_vida;
 	public Text text_barra_exp;
 	public Text text_nivel;
@@ -28,7 +29,7 @@ public class UIManager : MonoBehaviour {
 			Destroy (this.gameObject);
 		}
 
-
+		barra_entrenamiento.maxValue = 1f;
 
 	}
 	
@@ -52,6 +53,16 @@ public class UIManager : MonoBehaviour {
 
 		barra_vida.value = estadisticas.Vida_actual;
 		barra_exp.value = estadisticas.Experiencia_actual;
+
+		if (jugadorControlador.Destrezas.Esta_entrenando && jugadorControlador.Destrezas.Meta_entrenamiento > 0) {
+			barra_entrenamiento.value = (float)jugadorControlador.Destrezas.Meta_entrenamiento_contador / (float)jugadorControlador.Destrezas.Meta_entrenamiento;
+
+			//print (jugadorControlador.Destrezas.Meta_entrenamiento_contador / jugadorControlador.Destrezas.Meta_entrenamiento);
+		}
+		else {
+			barra_entrenamiento.value = 0;
+		}
+		
 		text_barra_vida.text = estadisticas.Vida_actual + "/" + estadisticas.Vida_base[nivel];
 
 		text_nivel.text = "Nivel: " + nivel;

@@ -8,6 +8,7 @@ public class JugadorControlador : MonoBehaviour {
 	private Rigidbody2D rb;
 	private JugadorEstadisticas jugadorEstadisticas; //COMPOSICION
 	private JugadorEstado jugadorEstado;
+	private Destrezas destrezas;
 	private Vector2 axis; //si es horizontal o vertical actualmente
 	private Vector2 last_move; //para la direccion del movimiento
 	private Vector3 posicion_inicial =  new Vector3 (28.71f, -14.3f, 0f);
@@ -22,14 +23,23 @@ public class JugadorControlador : MonoBehaviour {
 	public GameObject prefab_danio_flotante;
 	SoundManager sfx;
 
+	public GameObject prefab_golpe;
+
+	public bool tiene_arma;
+
+	private float monedas;
+
+	private GameObject arma;
+
 	void Start () {
 		animator = GetComponent<Animator> ();
 		rb = GetComponent<Rigidbody2D> ();
 		sprite_renderer = GetComponent<SpriteRenderer> ();
 		jugadorEstadisticas = gameObject.AddComponent <JugadorEstadisticas>();
 		jugadorEstado = gameObject.AddComponent <JugadorEstado>();
+		destrezas = gameObject.AddComponent<Destrezas> ();
 		sfx = FindObjectOfType<SoundManager> ();
-
+		arma = GameObject.Find ("Weapon");
 
 
 		this.last_move.y = -1;
@@ -48,7 +58,9 @@ public class JugadorControlador : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+		arma.gameObject.SetActive(tiene_arma);
+
 	}
 
 	public void regenerarEstadisticasTotalmente(){
@@ -137,6 +149,31 @@ public class JugadorControlador : MonoBehaviour {
 
 	public JugadorEstado JugadorEstado {		get {			return this.jugadorEstado;		}		set {			jugadorEstado = value;		}	}
 
+	public bool Tiene_arma {
+		get {
+			return this.tiene_arma;
+		}
+		set {
+			tiene_arma = value;
+		}
+	}
 
+	public Destrezas Destrezas {
+		get {
+			return this.destrezas;
+		}
+		set {
+			destrezas = value;
+		}
+	}
+
+	public float Monedas {
+		get {
+			return this.monedas;
+		}
+		set {
+			monedas = value;
+		}
+	}
 
 }

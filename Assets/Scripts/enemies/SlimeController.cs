@@ -52,9 +52,11 @@ public class SlimeController : EnemyController {
 
 		if (col.gameObject.name == jugador) {
 
+
 			col.gameObject.SendMessageUpwards ("aplicarDanio", new string[]{""+danio,"fisico"});
 
 		} 
+
 	}
 
 

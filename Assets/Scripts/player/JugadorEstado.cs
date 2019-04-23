@@ -52,7 +52,11 @@ public class JugadorEstado : MonoBehaviour {
 			break;
 		case 2:
 			controlesMovimientoAtaque ();
-			animacionAtaqueEspada ();
+			if (jugadorControlador.Tiene_arma) {
+				animacionAtaqueEspada ();
+			} else {
+				animacionGolpe ();
+			}
 			break;
 		case 3:
 			esta_atacando = false;
@@ -153,8 +157,6 @@ public class JugadorEstado : MonoBehaviour {
 		}
 	}
 
-
-
 	void controlesMovimientoAtaque(){
 
 		jugadorControlador.Axis = new Vector2(Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
@@ -193,30 +195,48 @@ public class JugadorEstado : MonoBehaviour {
 	void controlesAccion(){
 		if (Input.GetKeyDown (KeyCode.A)) {
 			//ataca con la espada
-			esta_atacando = true;
-			if (!esta_animando)
+
+
+			if (!esta_animando) {
+				esta_atacando = true;
 				this.Estado_actual = JugadorEstado.ATACANDO;
-			else {
-				animacionAtaqueEspada ();
+
+				if (jugadorControlador.Tiene_arma) {
+
+					sfx.SOUND_JUGADOR_ATAQUE.Play ();
+				} else {
+
+					if (jugadorControlador.Last_move.y > 0.5f) {
+						Instantiate (jugadorControlador.prefab_golpe, new Vector3(transform.position.x,transform.position.y+0.45f, transform.position.z ), this.transform.rotation);
+					} else if (jugadorControlador.Last_move.y < -0.5f) {
+						Instantiate (jugadorControlador.prefab_golpe, new Vector3(transform.position.x,transform.position.y-0.44f, transform.position.z ), this.transform.rotation);
+					} else if (jugadorControlador.Last_move.x > 0.5f) {
+						Instantiate (jugadorControlador.prefab_golpe, new Vector3(transform.position.x+0.6f,transform.position.y, transform.position.z ), this.transform.rotation);
+					} else if (jugadorControlador.Last_move.x < -0.5f) {
+						Instantiate (jugadorControlador.prefab_golpe, new Vector3(transform.position.x-0.6f,transform.position.y, transform.position.z ), this.transform.rotation);
+					} 
+				}
 			}
-			sfx.SOUND_JUGADOR_ATAQUE.Play ();
+
 		}
 	}
 
 	void controlesAccionHerido(){
 		if (Input.GetKeyDown (KeyCode.A)) {
 			//ataca con la espada
-			esta_atacando = true;
-			animacionAtaqueEspadaHerido ();
-			sfx.SOUND_JUGADOR_ATAQUE.Play ();
+			if (!esta_atacando) {
+				esta_atacando = true;
+				sfx.SOUND_JUGADOR_ATAQUE.Play ();
+			}
 		}
 	}
 
 	void animatorSetInfo(){
-		
+		jugadorControlador.Animator.SetBool ("tiene_arma", jugadorControlador.Tiene_arma);
 		jugadorControlador.Animator.SetFloat ("ultimo_axisX",jugadorControlador.Last_move.x);
 		jugadorControlador.Animator.SetFloat ("ultimo_axisY",jugadorControlador.Last_move.y);
 		jugadorControlador.Animator.SetInteger ("estado", estado_actual);
+
 	}
 
 	void animacionMuerte(){
@@ -249,14 +269,15 @@ public class JugadorEstado : MonoBehaviour {
 		}
 	}
 
-	void animacionAtaqueEspadaHerido(){
-
+	void animacionGolpe(){
 		tiempo_ataque_contador -= Time.deltaTime;
 		esta_animando = true;
 		if (tiempo_ataque_contador < 0) {
 			tiempo_ataque_contador = tiempo_ataque;
+			this.Estado_actual = JugadorEstado.QUIETO;
 			esta_animando = false;
 		}
+
 	}
 
 	void animacionHerido(){
