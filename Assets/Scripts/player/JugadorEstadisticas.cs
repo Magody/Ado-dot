@@ -47,7 +47,7 @@ public class JugadorEstadisticas : MonoBehaviour {
 	private float esquivar;
 	private float bloquear;
 
-	private float[] regeneracion_vida_base = new float[]{3, 5, 10, 15, 20, 25, 30, 50};
+	private float[] regeneracion_vida_base = new float[]{1, 3, 5, 7, 9, 11, 13, 15};
 	private float regeneracion_vida_actual;
 	private float modificacion_regeneracion_vida;
 
@@ -269,6 +269,16 @@ public class JugadorEstadisticas : MonoBehaviour {
 		} else {
 			regeneracion_resistencia_actual = regeneracion_resistencia_base [nivel_actual];
 		}
+	}
+
+	public void aplicarSanacion(float sanacion){
+
+		if (vida_actual + sanacion >= vida_base [nivel_actual]) {
+			vida_actual = vida_base [nivel_actual];
+		} else {
+			vida_actual += sanacion;
+		}
+
 	}
 
 
@@ -542,6 +552,58 @@ public class JugadorEstadisticas : MonoBehaviour {
 		}
 	}
 
+	public float[] Regeneracion_vida_base {
+		get {
+			return this.regeneracion_vida_base;
+		}
+		set {
+			regeneracion_vida_base = value;
+		}
+	}
 
+	public float Regeneracion_vida_actual {
+		get {
+			return this.regeneracion_vida_actual;
+		}
+		set {
+			regeneracion_vida_actual = value;
+		}
+	}
+
+	public float[] Regeneracion_mana_base {
+		get {
+			return this.regeneracion_mana_base;
+		}
+		set {
+			regeneracion_mana_base = value;
+		}
+	}
+
+	public float Regeneracion_mana_actual {
+		get {
+			return this.regeneracion_mana_actual;
+		}
+		set {
+			regeneracion_mana_actual = value;
+		}
+	}
+
+	public float[] Regeneracion_resistencia_base {
+		get {
+			return this.regeneracion_resistencia_base;
+		}
+		set {
+			regeneracion_resistencia_base = value;
+		}
+	}
+
+	public float Regeneracion_resistencia_actual {
+		get {
+			return this.regeneracion_resistencia_actual;
+		}
+		set {
+			regeneracion_resistencia_actual = value;
+		}
+	}
 
 }

@@ -31,6 +31,9 @@ public class JugadorControlador : MonoBehaviour {
 
 	private GameObject arma;
 
+	public Habilidad[] habilidades_activas;
+	public HabilidadesPasivas habilidades_pasivas;
+
 	void Start () {
 		animator = GetComponent<Animator> ();
 		rb = GetComponent<Rigidbody2D> ();
@@ -40,12 +43,18 @@ public class JugadorControlador : MonoBehaviour {
 		destrezas = gameObject.AddComponent<Destrezas> ();
 		sfx = FindObjectOfType<SoundManager> ();
 		arma = GameObject.Find ("Weapon");
-
+		habilidades_activas = new Habilidad[4];
+		habilidades_pasivas = new HabilidadesPasivas (jugadorEstadisticas);
 
 		this.last_move.y = -1;
 		jugadorEstadisticas.iniciarEstadisticas(this); //vida y velocidad movimiento
 		jugadorEstado.iniciarEstado (JugadorEstado.QUIETO,this);
 
+
+		habilidades_activas [0] = gameObject.AddComponent<HBolaDeFuego> ();
+		habilidades_activas [1] = gameObject.AddComponent<HCuracion> ();
+		habilidades_activas [2] = gameObject.AddComponent<HEscudoDeLlamas> ();
+		habilidades_activas [3] = gameObject.AddComponent<HEsperanza> ();
 
 		if (!JugadorControlador.player_exist) {
 			JugadorControlador.player_exist = true;
@@ -60,6 +69,26 @@ public class JugadorControlador : MonoBehaviour {
 	void Update () {
 
 		arma.gameObject.SetActive(tiene_arma);
+
+		if (Input.GetKeyUp (KeyCode.Alpha1)) {
+			habilidades_activas [0].activar ();
+		}
+		if (Input.GetKeyUp (KeyCode.Alpha2)) {
+			habilidades_activas [1].activar ();
+		}
+		if (Input.GetKeyUp (KeyCode.Alpha3)) {
+			habilidades_activas [2].activar ();
+		}
+		if (Input.GetKeyUp (KeyCode.Alpha4)) {
+			habilidades_activas [3].activar ();
+		}
+		if (Input.GetKeyUp (KeyCode.Z)) {
+			habilidades_pasivas.habilitarPasivaMago ();
+		}
+		if (Input.GetKeyUp (KeyCode.X)) {
+			habilidades_pasivas.deshabilitarPasivaMago ();
+		}
+
 
 	}
 
