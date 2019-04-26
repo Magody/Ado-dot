@@ -9,6 +9,11 @@ public abstract class EnemyController : MonoBehaviour {
 	protected Rigidbody2D rb;
 	protected bool esta_moviendose;
 	protected Vector3 direccion_movimiento;
+	public float time_pause_move;
+	protected float time_pause_move_counter;
+	public float time_moving;
+	protected float time_moving_counter;
+	protected string jugador;
 
 	public float vida_base;
 	public float vida_actual;
@@ -25,6 +30,10 @@ public abstract class EnemyController : MonoBehaviour {
 	protected float danio;
 	public Image barra_vida;
 
+	protected SpriteRenderer spriteRenderer;
+	protected Sprite sprite_ultimo;
+
+	protected bool detener_animacion;
 
 	// Use this for initialization
 	protected void SuperStart () {
@@ -32,8 +41,9 @@ public abstract class EnemyController : MonoBehaviour {
 		animator = GetComponent<Animator> ();
 		vida_actual = vida_base;
 		jugadorControlador = FindObjectOfType<JugadorControlador> ();
-
-	
+		esta_moviendose = true;
+		detener_animacion = true;
+		spriteRenderer = GetComponent<SpriteRenderer> ();
 	}
 	
 	// Update is called once per frame
@@ -50,10 +60,14 @@ public abstract class EnemyController : MonoBehaviour {
 			Destroy (this.gameObject);
 		}
 
+		dibujarBarraVida ();
 
+
+
+	}
+
+	protected void dibujarBarraVida(){
 		barra_vida.fillAmount = vida_actual / vida_base;
-
-
 	}
 
 	void aplicarDanio(float damage){
@@ -63,6 +77,19 @@ public abstract class EnemyController : MonoBehaviour {
 			vida_actual = 0;
 
 		Instantiate (particle_prefab_blood, transform.position,transform.rotation);
+
+	}
+
+	protected void detenerTiempoPropio(){
+		if (detener_animacion) {
+			rb.velocity = Vector2.zero;
+			esta_moviendose = false;
+			sprite_ultimo = spriteRenderer.sprite;
+			animator.enabled = false;
+			detener_animacion = false;
+		}
+
+
 
 	}
 

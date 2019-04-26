@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\Estructuras de datos\Nodo.cs" />
      <Compile Include="Assets\Scripts\InitController.cs" />
      <Compile Include="Assets\Scripts\InstanciadorPrefab.cs" />
+     <Compile Include="Assets\Scripts\Main\ControladorGlobal.cs" />
      <Compile Include="Assets\Scripts\NPC\Instructor.cs" />
      <Compile Include="Assets\Scripts\NPC\NPC.cs" />
      <Compile Include="Assets\Scripts\Quest\QuestManager.cs" />
@@ -75,7 +76,6 @@
      <Compile Include="Assets\Scripts\enemies\NeudroxController.cs" />
      <Compile Include="Assets\Scripts\enemies\SlimeController.cs" />
      <Compile Include="Assets\Scripts\levels\LoadNewArea.cs" />
-     <Compile Include="Assets\Scripts\mainDebug.cs" />
      <Compile Include="Assets\Scripts\objetos\BolaDeFuegoControlador.cs" />
      <Compile Include="Assets\Scripts\objetos\MonedaControlador.cs" />
      <Compile Include="Assets\Scripts\objetos\OrbeControlador.cs" />
@@ -86,6 +86,7 @@
      <Compile Include="Assets\Scripts\player\JugadorEstado.cs" />
      <Compile Include="Assets\Scripts\player\habilidades\HBolaDeFuego.cs" />
      <Compile Include="Assets\Scripts\player\habilidades\HCuracion.cs" />
+     <Compile Include="Assets\Scripts\player\habilidades\HDetenerTiempo.cs" />
      <Compile Include="Assets\Scripts\player\habilidades\HEscudoDeLlamas.cs" />
      <Compile Include="Assets\Scripts\player\habilidades\HEsperanza.cs" />
      <Compile Include="Assets\Scripts\player\habilidades\HRabiar.cs" />

@@ -31,40 +31,50 @@ public class NPC : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (!esta_caminando) {
-			rb.velocity = Vector2.zero;
+		if (ControladorGlobal.flujo_normal_tiempo) {
+			if (!esta_caminando) {
+				rb.velocity = Vector2.zero;
 
-			tiempo_espera_contador -= Time.deltaTime;
-			if (tiempo_espera_contador < 0) {
-				esta_caminando = true;
-				tiempo_espera_contador = tiempo_espera;
+				tiempo_espera_contador -= Time.deltaTime;
+				if (tiempo_espera_contador < 0) {
+					esta_caminando = true;
+					tiempo_espera_contador = tiempo_espera;
+				}
+			} else {
+				tiempo_caminata_contador -= Time.deltaTime;
+
+				switch (direccion) {
+
+				case 0:
+					rb.velocity = new Vector2 (0, velocidad_movimiento);
+					break;
+				case 1:
+					rb.velocity = new Vector2 (velocidad_movimiento, 0);
+					break;
+				case 2:
+					rb.velocity = new Vector2 (0, -velocidad_movimiento);
+					break;
+				case 3:
+					rb.velocity = new Vector2 (-velocidad_movimiento, 0);
+					break;
+				}
+
+
+				if (tiempo_caminata_contador < 0) {
+					esta_caminando = false;
+					direccion = Random.Range (0, 3);
+					tiempo_caminata_contador = tiempo_caminata;
+				}
 			}
 		} else {
-			tiempo_caminata_contador -= Time.deltaTime;
-
-			switch (direccion) {
-
-			case 0:
-				rb.velocity = new Vector2 (0,velocidad_movimiento);
-				break;
-			case 1:
-				rb.velocity = new Vector2 (velocidad_movimiento,0);
-				break;
-			case 2:
-				rb.velocity = new Vector2 (0,-velocidad_movimiento);
-				break;
-			case 3:
-				rb.velocity = new Vector2 (-velocidad_movimiento,0);
-				break;
-			}
-
-
-			if (tiempo_caminata_contador < 0) {
-				esta_caminando = false;
-				direccion = Random.Range (0, 3);
-				tiempo_caminata_contador = tiempo_caminata;
-			}
+			detenerTiempoPropio ();
+			esta_caminando = true;
 		}
 	}
+
+	private void detenerTiempoPropio(){
+		rb.velocity = Vector2.zero;
+	}
+
 
 }

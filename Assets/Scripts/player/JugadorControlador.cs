@@ -56,6 +56,7 @@ public class JugadorControlador : MonoBehaviour {
 		habilidades_activas [2] = gameObject.AddComponent<HEscudoDeLlamas> ();
 		habilidades_activas [3] = gameObject.AddComponent<HEsperanza> ();
 		habilidades_activas [4] = gameObject.AddComponent<HRabiar> ();
+		habilidades_activas [5] = gameObject.AddComponent<HDetenerTiempo> ();
 
 		if (!JugadorControlador.player_exist) {
 			JugadorControlador.player_exist = true;
