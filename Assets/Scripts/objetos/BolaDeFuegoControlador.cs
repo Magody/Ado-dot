@@ -33,7 +33,7 @@ public class BolaDeFuegoControlador : MonoBehaviour {
 
 				if (col.gameObject.tag == "Enemy") {
 					float danio = jugadorControlador.JugadorEstadisticas.Fuerza_magica_destructora_actual;
-					CombateManager.danioFlotanteColision (this.transform, jugadorControlador.JugadorEstadisticas, col, danio);
+					CombateManager.danioFlotanteColision (this.transform, jugadorControlador.JugadorEstadisticas, col, danio, jugadorControlador.habilidades_pasivas.Tiene_vampirismo);
 				} 
 				tiempo_danio = 0;
 			}

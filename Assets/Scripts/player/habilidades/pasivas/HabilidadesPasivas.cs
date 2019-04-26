@@ -5,6 +5,7 @@ using UnityEngine;
 public class HabilidadesPasivas {
 
 
+	private bool tiene_vampirismo;
 	JugadorEstadisticas jugadorEstadisticas;
 	// Use this for initialization
 	public HabilidadesPasivas(JugadorEstadisticas jugadorEstadisticas) {
@@ -26,6 +27,24 @@ public class HabilidadesPasivas {
 			jugadorEstadisticas.Regeneracion_mana_base [i] /= 3;
 		}
 		jugadorEstadisticas.actualizarEstadisticasNivel ();
+	}
+
+	public void habilitarVampirismo(){
+		tiene_vampirismo = true;
+	}
+
+	public void deshabilitarVampirismo(){
+		tiene_vampirismo = false;
+	}
+
+
+	public bool Tiene_vampirismo {
+		get {
+			return this.tiene_vampirismo;
+		}
+		set {
+			tiene_vampirismo = value;
+		}
 	}
 
 

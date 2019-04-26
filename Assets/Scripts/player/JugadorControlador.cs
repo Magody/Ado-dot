@@ -43,7 +43,7 @@ public class JugadorControlador : MonoBehaviour {
 		destrezas = gameObject.AddComponent<Destrezas> ();
 		sfx = FindObjectOfType<SoundManager> ();
 		arma = GameObject.Find ("Weapon");
-		habilidades_activas = new Habilidad[4];
+		habilidades_activas = new Habilidad[9];
 		habilidades_pasivas = new HabilidadesPasivas (jugadorEstadisticas);
 
 		this.last_move.y = -1;
@@ -55,6 +55,7 @@ public class JugadorControlador : MonoBehaviour {
 		habilidades_activas [1] = gameObject.AddComponent<HCuracion> ();
 		habilidades_activas [2] = gameObject.AddComponent<HEscudoDeLlamas> ();
 		habilidades_activas [3] = gameObject.AddComponent<HEsperanza> ();
+		habilidades_activas [4] = gameObject.AddComponent<HRabiar> ();
 
 		if (!JugadorControlador.player_exist) {
 			JugadorControlador.player_exist = true;
@@ -82,11 +83,29 @@ public class JugadorControlador : MonoBehaviour {
 		if (Input.GetKeyUp (KeyCode.Alpha4)) {
 			habilidades_activas [3].activar ();
 		}
+		if (Input.GetKeyUp (KeyCode.Alpha5)) {
+			habilidades_activas [4].activar ();
+		}
+		if (Input.GetKeyUp (KeyCode.Alpha6)) {
+			habilidades_activas [5].activar ();
+		}
+		if (Input.GetKeyUp (KeyCode.Alpha7)) {
+			habilidades_activas [6].activar ();
+		}
+		if (Input.GetKeyUp (KeyCode.Alpha8)) {
+			habilidades_activas [7].activar ();
+		}
+		if (Input.GetKeyUp (KeyCode.Alpha9)) {
+			habilidades_activas [8].activar ();
+		}
+
 		if (Input.GetKeyUp (KeyCode.Z)) {
-			habilidades_pasivas.habilitarPasivaMago ();
+			habilidades_pasivas.habilitarVampirismo ();
+			//habilidades_pasivas.habilitarPasivaMago ();
 		}
 		if (Input.GetKeyUp (KeyCode.X)) {
-			habilidades_pasivas.deshabilitarPasivaMago ();
+			habilidades_pasivas.deshabilitarVampirismo ();
+			//habilidades_pasivas.deshabilitarPasivaMago ();
 		}
 
 

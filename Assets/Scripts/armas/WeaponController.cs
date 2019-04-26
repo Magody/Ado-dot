@@ -19,7 +19,7 @@ public abstract class WeaponController : MonoBehaviour {
 
 		if (col.gameObject.tag == "Enemy" && jugadorControlador.JugadorEstado.Esta_atacando) {
 
-			CombateManager.danioFlotante(this.transform, jugadorControlador.JugadorEstadisticas, col,danio);
+			CombateManager.danioFlotante(this.transform, jugadorControlador.JugadorEstadisticas, col,danio, jugadorControlador.habilidades_pasivas.Tiene_vampirismo);
 
 		}
 

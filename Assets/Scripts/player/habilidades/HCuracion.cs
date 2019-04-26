@@ -25,7 +25,7 @@ public class HCuracion : Habilidad {
 			if (esta_activada) {
 
 
-				CombateManager.sanacionFlotanteJugador (this.transform, jugadorEstadisticas.Vida_base [jugadorControlador.JugadorEstadisticas.Nivel_actual] * 0.1f, jugadorEstadisticas); //10%
+				CombateManager.sanacionFlotanteJugador (this.transform, jugadorEstadisticas.Vida_base [jugadorControlador.JugadorEstadisticas.Nivel_actual] * 0.1f, jugadorEstadisticas,2f); //10%
 
 				Instantiate (prefab_efecto, new Vector3(this.transform.position.x,this.transform.position.y, this.transform.position.z-1f), this.transform.rotation);
 				esta_activada = false;

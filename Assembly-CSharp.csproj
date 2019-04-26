@@ -88,6 +88,7 @@
      <Compile Include="Assets\Scripts\player\habilidades\HCuracion.cs" />
      <Compile Include="Assets\Scripts\player\habilidades\HEscudoDeLlamas.cs" />
      <Compile Include="Assets\Scripts\player\habilidades\HEsperanza.cs" />
+     <Compile Include="Assets\Scripts\player\habilidades\HRabiar.cs" />
      <Compile Include="Assets\Scripts\player\habilidades\Habilidad.cs" />
      <Compile Include="Assets\Scripts\player\habilidades\pasivas\HabilidadesPasivas.cs" />
      <Compile Include="Assets\Scripts\player\talentos\ArbolAtaque.cs" />

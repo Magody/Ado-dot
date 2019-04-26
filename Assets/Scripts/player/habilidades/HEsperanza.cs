@@ -34,7 +34,7 @@ public class HEsperanza : Habilidad {
 				tiempo_segundo_contador += Time.deltaTime;
 
 				if (tiempo_segundo_contador > 1) {
-					CombateManager.sanacionFlotanteJugador (this.transform, jugadorEstadisticas.Vida_base [jugadorEstadisticas.Nivel_actual] * 0.01f, jugadorEstadisticas); //1%
+					CombateManager.sanacionFlotanteJugador (this.transform, jugadorEstadisticas.Vida_base [jugadorEstadisticas.Nivel_actual] * 0.01f, jugadorEstadisticas, 2f); //1%
 					Instantiate (prefab_efecto, new Vector3 (this.transform.position.x, this.transform.position.y, this.transform.position.z - 1f), this.transform.rotation);
 
 					tiempo_segundo_contador = 0;

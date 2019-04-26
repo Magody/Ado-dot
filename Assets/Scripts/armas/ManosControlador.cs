@@ -19,7 +19,7 @@ public class ManosControlador : MonoBehaviour {
 
 		if (col.gameObject.tag == "Enemy") {
 			danio = jugadorEstadisticas.Fuerza_fisica_actual;
-			CombateManager.danioFlotante(this.transform, jugadorEstadisticas, col,danio);
+			CombateManager.danioFlotante(this.transform, jugadorEstadisticas, col,danio, jugadorControlador.habilidades_pasivas.Tiene_vampirismo);
 
 
 			if (jugadorControlador.Destrezas.Esta_entrenando && jugadorControlador.Destrezas.Tema_entrenamiento == "FF") {
