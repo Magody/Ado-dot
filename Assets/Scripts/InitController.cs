@@ -8,15 +8,16 @@ public class InitController : MonoBehaviour {
 	carga una nueva escena. Como pausa,etc.*/
 
 
-	private JugadorControlador player_controller;
+	private Jugador player_controller;
 	private bool once;
 	private float timer;
-	public int musica;
-	MusicController musicController;
+	public string musica;
+
 	void Start () {
 		once = true;
-		musicController = FindObjectOfType<MusicController> ();
-		musicController.cambiarMusica (musica);
+
+
+		ControladorGlobal.manejadorMusica.reproducirMusica (musica);
 	}
 
 	void Update(){
@@ -26,8 +27,8 @@ public class InitController : MonoBehaviour {
 			//print (timer);
 			timer += Time.deltaTime;
 			if (timer > 0.1f) {
-				player_controller = FindObjectOfType<JugadorControlador> ();
-				player_controller.Can_move = true;
+				player_controller = FindObjectOfType<Jugador> ();
+				player_controller.Puede_moverse = true;
 				once = false;
 				Destroy (this.gameObject);
 			}

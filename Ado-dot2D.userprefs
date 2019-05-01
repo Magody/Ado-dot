@@ -1,6 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Entidades\Jugador\Jugador.cs">
+    <Files>
+      <File FileName="Assets\Scripts\ControladorGlobal.cs" Line="37" Column="3" />
+      <File FileName="Assets\Scripts\Sonido\ManejadorSFX.cs" Line="43" Column="13" />
+      <File FileName="Assets\Scripts\Entidades\Jugador\Jugador.cs" Line="66" Column="18" />
+      <File FileName="Assets\Scripts\Entidades\Jugador\Habilidades\HBolaDeFuego.cs" Line="52" Column="82" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
